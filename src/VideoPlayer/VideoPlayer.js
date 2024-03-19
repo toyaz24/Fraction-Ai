@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState } from "react";
 import ReactPlayer from "react-player";
 import ArrowLeftIcon from "../../src/Assets/ArrowLeftIcon.svg";
 import ArrowRightIcon from "../../src/Assets/ArrowRightIcon.svg";
@@ -23,7 +23,6 @@ const VideoPlayer = ({ url }) => {
       if (startTime === 0) {
         setStartTime(state.playedSeconds);
       }
-      setStopTime(state.playedSeconds);
     }
   };
 
@@ -33,11 +32,6 @@ const VideoPlayer = ({ url }) => {
     } else {
       setStartTime(currentTime);
     }
-    setPlaying(!playing);
-  };
-  const handleSeekChange = (e) => {
-    const newTime = parseFloat(e.target.value) * duration;
-    setCurrentTime(newTime);
   };
 
   const handleSeekMouseDown = () => {
@@ -58,6 +52,16 @@ const VideoPlayer = ({ url }) => {
     setShowModal(true);
   };
 
+  const handleProgressBarClick = (e) => {
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const clickedX = e.clientX - rect.left;
+    const progressBarWidth = rect.width;
+    const clickedPercentage = clickedX / progressBarWidth;
+    const newProgress = parseFloat(clickedPercentage.toFixed(2));
+    const newTime = newProgress * duration;
+  };
+
   return (
     <div className="p-md-4 p-2 video-player-container">
       <ReactPlayer
@@ -72,17 +76,38 @@ const VideoPlayer = ({ url }) => {
         <button
           className="btn btn-primary start-player-button start-custom-mg"
           onClick={() => {
-            setPlaying(true);
             setStartTime(currentTime);
           }}
         >
           Start
           <img className="arrow-btn" src={ArrowLeftIcon} />
         </button>
-        <div
-          className="progress-bar-wrapper w-100"
-          onMouseMove={handleMouseMove}
-        >
+        <div className="progress-bar-wrapper w-100">
+          {startTime !== 0 && (
+            <div
+              className="vertical-line start-line"
+              style={{ left: `${(startTime / duration) * 100}%` }}
+            >
+              <div
+                className="tooltip start-tooltip"
+                style={{ top: "100%", left: "-50%" }}
+              >
+                {Math.floor(startTime)}
+              </div>
+            </div>
+          )}
+
+          {stopTime !== 0 && (
+            <div
+              className="vertical-line stop-line"
+              id="sdfghj"
+              style={{ left: `${(stopTime / duration) * 100}%` }}
+              data-toggle="tooltip"
+              title="Tooltip on top"
+              data-placement="right"
+            ></div>
+          )}
+
           <input
             type="range"
             className="duration-range"
@@ -90,21 +115,17 @@ const VideoPlayer = ({ url }) => {
             max={1}
             step="any"
             value={progress}
-            onChange={handleSeekChange}
+            // onChange={handleSeekChange}
             onMouseDown={handleSeekMouseDown}
             onMouseUp={handleSeekMouseUp}
+            onClick={handleProgressBarClick}
           />
           <div
             className="progress-indicator"
             style={{ width: `${progress * 100}%` }}
           ></div>
-          {startTime !== 0 && (
-            <div className="tooltip start-tooltip">{Math.floor(startTime)}</div>
-          )}
-          {stopTime !== 0 && (
-            <div className="tooltip stop-tooltip">{Math.floor(stopTime)}</div>
-          )}
         </div>
+
         <button
           className="btn btn-primary start-player-button stop-custom-mg"
           onClick={handleStop}
@@ -112,12 +133,6 @@ const VideoPlayer = ({ url }) => {
           Stop
           <img className="arrow-btn" src={ArrowRightIcon} />
         </button>
-        <input
-          type="text"
-          value={Math.floor(Math.abs(currentTime))}
-          readOnly
-          className="timer-readonly-text"
-        />
       </div>
       <div className="description-input-container mt-2">
         <label htmlFor="description" className="description-label">
@@ -133,6 +148,7 @@ const VideoPlayer = ({ url }) => {
           className="form-control"
         />
       </div>
+
       <div className="pt-3 d-flex justify-content-center">
         <button
           className="btn btn-primary start-player-button"
@@ -145,7 +161,7 @@ const VideoPlayer = ({ url }) => {
         show={showModal}
         onHide={handleModalClose}
         startTooltipTime={startTime}
-        stopTooltipTime={currentTime}
+        stopTooltipTime={stopTime}
         description={description}
       />
     </div>
