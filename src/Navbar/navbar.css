@@ -1,0 +1,59 @@
+.fraction-ai-text {
+  font-size: 20px;
+  font-weight: 700;
+}
+.navbar-custom {
+  font-size: 16px;
+  font-weight: 500;
+}
+.navbar-custom-class {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  flex: 1;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.nav-container {
+  padding-left: 34px;
+  padding-right: 26px;
+  padding-bottom: 30px;
+}
+
+.bookdemo-btn-bg-color {
+  background-color: #6f43cd;
+}
+.bookDemo{
+    flex-shrink: 0;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .fracction-mobile-icon {
+    width: 18px;
+    height: 18px;
+  }
+  .fraction-ai-text {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .bookdemo-btn-bg-color {
+    font-size: 12px;
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 800px) {
+  .fracction-mobile-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .fraction-ai-text {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .bookdemo-btn-bg-color {
+    font-size: 14px;
+  }
+}

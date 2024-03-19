@@ -1,0 +1,28 @@
+.header-conatiner {
+  padding: 32px;
+}
+
+.header-subcontent-conatienr {
+  padding-left: "24px";
+  padding-right: " 32px";
+}
+
+@media only screen and (min-width: 300px) and (max-width: 500px) {
+  .header-conatiner {
+    padding: 0px;
+  }
+  .header-subcontent-conatienr {
+    padding-left: "0px";
+    padding-right: " 0px";
+  }
+}
+
+@media only screen and (min-width: 500px) and (max-width: 800px) {
+  .header-conatiner {
+    padding: 14px;
+  }
+  .header-subcontent-conatienr {
+    padding-left: "12px";
+    padding-right: " 16px";
+  }
+}
