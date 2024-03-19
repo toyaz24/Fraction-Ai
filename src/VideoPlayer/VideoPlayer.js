@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import ArrowLeftIcon from "../../src/Assets/ArrowLeftIcon.svg";
 import ArrowRightIcon from "../../src/Assets/ArrowRightIcon.svg";
@@ -15,6 +15,7 @@ const VideoPlayer = ({ url }) => {
   const [description, setDescription] = useState("");
   const [showModal, setShowModal] = useState(false);
 
+  
   const handleProgress = (state) => {
     setProgress(state.played);
     setCurrentTime(state.playedSeconds);
@@ -33,6 +34,7 @@ const VideoPlayer = ({ url }) => {
       setStartTime(currentTime);
     }
   };
+ 
 
   const handleSeekMouseDown = () => {
     setPlaying(false);
@@ -53,13 +55,13 @@ const VideoPlayer = ({ url }) => {
   };
 
   const handleProgressBarClick = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     const rect = e.currentTarget.getBoundingClientRect();
     const clickedX = e.clientX - rect.left;
     const progressBarWidth = rect.width;
     const clickedPercentage = clickedX / progressBarWidth;
-    const newProgress = parseFloat(clickedPercentage.toFixed(2));
-    const newTime = newProgress * duration;
+    const newProgress = parseFloat(clickedPercentage.toFixed(2)); 
+        const newTime = newProgress * duration; 
   };
 
   return (
@@ -70,12 +72,15 @@ const VideoPlayer = ({ url }) => {
         onProgress={handleProgress}
         onDuration={(duration) => setDuration(duration)}
         className="player-content"
+        
+
       />
 
       <div className="progress-bar-container d-flex">
         <button
           className="btn btn-primary start-player-button start-custom-mg"
           onClick={() => {
+            setPlaying(true);
             setStartTime(currentTime);
           }}
         >
@@ -99,13 +104,11 @@ const VideoPlayer = ({ url }) => {
 
           {stopTime !== 0 && (
             <div
-              className="vertical-line stop-line"
-              id="sdfghj"
+              className="vertical-line stop-line" id="sdfghj"
               style={{ left: `${(stopTime / duration) * 100}%` }}
-              data-toggle="tooltip"
-              title="Tooltip on top"
-              data-placement="right"
-            ></div>
+              data-toggle="tooltip" title="Tooltip on top" data-placement="right"
+            >
+            </div>
           )}
 
           <input
@@ -133,6 +136,7 @@ const VideoPlayer = ({ url }) => {
           Stop
           <img className="arrow-btn" src={ArrowRightIcon} />
         </button>
+       
       </div>
       <div className="description-input-container mt-2">
         <label htmlFor="description" className="description-label">
