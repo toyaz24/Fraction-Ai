@@ -1,6 +1,6 @@
 # Fraction-Ai
 
-1)Clone the project from GitHub or download the ZIP file.
+1)Clone the project from GitHub from master branch or download the ZIP file.
 
 2)Navigate to the src folder of the project and run the following command in your terminal:
 npm install
